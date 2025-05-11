@@ -1,10 +1,10 @@
 const mysql = require('mysql2/promise');
 
 const connexion = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'missie'
+    host: process.env.DB_HOST || 'localhost',  //process.env.DB_HOST || 'mysql', // 'mysql' = nom du service MySQL
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || '',
+    database: process.env.DB_NAME || 'missie'
 });
 
 connexion.getConnection()
