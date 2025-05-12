@@ -22,10 +22,11 @@ document.addEventListener("click", (e) => {
 
 // Fonction de déconnexion
 function logout() {
-  // log out logic here
-  alert("Déconnexion...");
-  // Par exemple : window.location.href = 'login.html';
-}
+      // Supprimer les données utilisateur (selon votre logique d'authentification)
+      localStorage.removeItem("username");
+      alert("Déconnexion ...");
+      window.location.href = "/"; // Rediriger vers la page de connexion
+    }
 
 
 document.addEventListener('DOMContentLoaded', () => {
