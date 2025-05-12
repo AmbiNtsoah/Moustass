@@ -2,7 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-
+const authRoutes = require('../backend/src/routes/authRoutes');
 const app = express();
 
 app.use(cors());
@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
 // 🔽 Tes routes API
 const audioRoutes = require('../backend/src/routes/audioroutes')
 app.use('/', audioRoutes);
+app.use('/api', authRoutes);
 
 app.listen(3000, () => {
   console.log('Backend running at http://localhost:3000');
