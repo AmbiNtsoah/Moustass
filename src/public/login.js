@@ -33,7 +33,7 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
   const res = await fetch("http://localhost:3000/api/signup", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username, email: username + "@ex.com", password })
+    body: JSON.stringify({ username, password })
   });
 
   const data = await res.json();
@@ -48,13 +48,13 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const inputs = e.target.querySelectorAll("input");
-  const email = inputs[0].value;
+  const username = inputs[0].value;
   const password = inputs[1].value;
 
   const res = await fetch("http://localhost:3000/api/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password })
+    body: JSON.stringify({ username, password })
   });
 
   const data = await res.json();

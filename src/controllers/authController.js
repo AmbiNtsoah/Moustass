@@ -7,11 +7,11 @@ function hashPassword(password) {
 }
 
 exports.signup = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, password } = req.body;
 
   try {
     const hashedPassword = hashPassword(password);
-    await User.create(username, email, hashedPassword);
+    await User.create(username, hashedPassword);
     res.status(201).json({ message: 'User registered' });
   } catch (err) {
     console.error(err);
@@ -20,11 +20,11 @@ exports.signup = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
   const hashed = hashPassword(password);
 
   try {
-    const user = await User.findByEmail(email);
+    const user = await User.findByEmail(username);
     if (!user || user.password !== hashed) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }

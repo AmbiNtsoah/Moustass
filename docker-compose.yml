@@ -1,4 +1,4 @@
-version: '3.8'
+# version: '3.8'
 
 services:
   mysql:
@@ -6,12 +6,16 @@ services:
     container_name: mysql-container
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: missie 
-      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      MYSQL_DATABASE: missie
     ports:
       - "3306:3306"
     networks:
       - backend-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   backend:
     build: .
@@ -19,11 +23,12 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     environment:
       DB_HOST: mysql
       DB_USER: root
-      DB_PASSWORD: 
+      DB_PASSWORD: root
       DB_NAME: missie
     networks:
       - backend-net
